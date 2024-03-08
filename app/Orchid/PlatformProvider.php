@@ -43,6 +43,10 @@ class PlatformProvider extends OrchidServiceProvider
                 ->icon('bag')
                 ->route('platform.task'),
 
+            Menu::make('Training Schedule')
+                ->icon('calendar')
+                ->route('platform.training'),
+
             Menu::make('Sample Screen')
                 ->icon('bs.collection')
                 ->route('platform.example')

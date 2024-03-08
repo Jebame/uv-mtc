@@ -20,6 +20,7 @@ use App\Orchid\Screens\User\UserProfileScreen;
 use Illuminate\Support\Facades\Route;
 use Tabuna\Breadcrumbs\Trail;
 use App\Orchid\Screens\TaskScreen;
+use App\Orchid\Screens\Training_SchedScreen;
 
 /*
 |--------------------------------------------------------------------------
@@ -99,6 +100,15 @@ Route::screen('task', TaskScreen::class)
         return $trail
             ->parent('platform.index')
             ->push('Task');
+    });
+
+//Training Schedule Screen
+Route::screen('training', Training_SchedScreen::class)
+    ->name('platform.training')
+    ->breadcrumbs(function (Trail $trail){
+        return $trail
+            ->parent('platform.index')
+            ->push('training');
     });
 
 Route::screen('/examples/form/fields', ExampleFieldsScreen::class)->name('platform.example.fields');
