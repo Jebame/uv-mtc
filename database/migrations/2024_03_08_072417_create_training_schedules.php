@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('t_schedule', function (Blueprint $table) {
+        Schema::create('training__schedules', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->date('date');
+            $table->date('start_date');
+            $table->date('end_date');
             $table->time('time');
             $table->string('instructor');
             $table->timestamps();
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('t_schedule');
+        Schema::dropIfExists('training__schedules');
     }
 };

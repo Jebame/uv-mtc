@@ -66,25 +66,30 @@ class Training_SchedScreen extends Screen
         return [
             Layout::table('training_sched', [
                 TD::make('name'),
-                TD::make('date'),
+                TD::make('start_date'),
+                TD::make('end_date'),
                 TD::make('time'),
                 TD::make('instructor'),
 
                 TD::make('Actions')
                     ->alignRight()
-                    ->render(function (Training_Schedule $t_schedule) {
+                    ->render(function (Training_Schedule $training__schedules) {
                         return Button::make('Delete Schedule')
                             ->confirm('After deleting, the Schedule will be gone forever.')
-                            ->method('delete', ['training_sched' => $t_schedule->id]);
+                            ->method('delete', ['training_sched' => $training__schedules->id]);
                     }),
             ]),
             Layout::modal('trainingModal', Layout::rows([
                 Input::make('t_schedule.name')
                     ->title('Name')
                     ->placeholder(''),
-                Input::make('t_schedule.date')
+                Input::make('t_schedule.start_date')
                     ->type('date')
-                    ->title('Date')
+                    ->title('Start Date')
+                    ->horizontal(),
+                Input::make('t_schedule.end_date')
+                    ->type('date')
+                    ->title('End Date')
                     ->horizontal(),
                 Input::make('t_schedule.time')
                     ->type('time')
@@ -103,20 +108,23 @@ class Training_SchedScreen extends Screen
     // Validate form data, save task to database, etc.
     $request->validate([
         't_schedule.name' => 'required|max:255',
-        't_schedule.date' => 'date_format',
+        't_schedule.start_date' => 'date',
+        't_schedule.end_date' => 'date',
         't_schedule.time' => 'date_format:H:i',
         't_schedule.instructor' => 'required|max:255',
     ]);
 
-    $t_schedule = new Training_Schedule();
-    $t_schedule->name = $request->input('t_schedule.name');
-    $t_schedule->date = $request->input('t_schedule.date');
-    $t_schedule->time = $request->input('t_schedule.time');
-    $t_schedule->instructor = $request->input('t_schedule.instructor');
-    $t_schedule->save();
+    $training__schedules = new Training_Schedule();
+    $training__schedules->name = $request->input('t_schedule.name');
+    $training__schedules->start_date = $request->input('t_schedule.start_date');
+    $training__schedules->end_date = $request->input('t_schedule.end_date');
+    $training__schedules->time = $request->input('t_schedule.time');
+    $training__schedules->instructor = $request->input('t_schedule.instructor');
+    $training__schedules->save();
     }
-    public function delete(Training_Schedule $t_schedule)
+
+    public function delete(Training_Schedule $training__schedules)
     {
-        $t_schedule->delete();
+        $training__schedules->delete();
     }
 }
